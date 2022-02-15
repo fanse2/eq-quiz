@@ -209,6 +209,10 @@ function goNext(){
   makeQuiz(quizNo);
   quizNo++;
   nextBtn.disabled = true
+  a1.disabled = false
+  a2.disabled = false
+  a3.disabled = false
+  a4.disabled = false
 }
 
 function correct(){
@@ -227,6 +231,10 @@ function answer1() {
     wrong()
   }
   nextBtn.disabled = false
+  a1.disabled = true
+  a2.disabled = true
+  a3.disabled = true
+  a4.disabled = true
 }
 function answer2() {
   if(correctAnswer==1){
@@ -235,6 +243,10 @@ function answer2() {
     wrong()
   }
   nextBtn.disabled = false
+  a1.disabled = true
+  a2.disabled = true
+  a3.disabled = true
+  a4.disabled = true
 }
 function answer3() {
   if(correctAnswer==2){
@@ -243,6 +255,10 @@ function answer3() {
     wrong()
   }
   nextBtn.disabled = false
+  a1.disabled = true
+  a2.disabled = true
+  a3.disabled = true
+  a4.disabled = true
 }
 function answer4() {
   if(correctAnswer==3){
@@ -251,6 +267,10 @@ function answer4() {
     wrong()
   }
   nextBtn.disabled = false
+  a1.disabled = true
+  a2.disabled = true
+  a3.disabled = true
+  a4.disabled = true
 }
 
 

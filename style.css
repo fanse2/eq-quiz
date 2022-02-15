@@ -20,92 +20,20 @@ h2 {
   font-weight: bold;
 }
 
-
 .questionDiv {
   background-color: rgb(164, 172, 196);
   text-align: center;
 }
 
-
-.inputGroup {
-  font-size: 30px;
-  width: 450px;
-  margin: auto;
-  padding: 10px;
-  position: relative;
-}
-
-.eq-btn {
-  border: 2px solid #56be98;
-  background-color: rgba(0, 0, 0, 0);
-  color: black;
-  padding: 10px 0;
-  font-size: 24px;
-  cursor: pointer;
-  border-radius: 5px;
-  width: 40px;
-}
-
-.eq-btn:hover {
-  background-color: #04aa6d;
-}
-
-.inputNum {
-  width: 40px;
-  background-color: rgba(0, 0, 0, 0);
-  border: 2px solid #56be98;
-  text-align: center;
-}
-
-.hr {
-  height: 2px;
-  background-color: #000;
-}
-
-.eqY,
-.eqX,
-.eqEqual {
-  padding-top: 24px;
-  font-weight: bold;
-  font-style: italic;
-}
-.eqSign1,
-.eqSign2 {
-  padding-top: 20px;
-}
-
 td.upper_line {
   border-top: solid 3px black;
 }
-table.fraction {
-  text-align: center;
-  vertical-align: middle;
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
-  line-height: 2em;
-}
 
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
 
 .eq-div {
   
   margin: auto;
   margin-top: 50px;
   display: inline-block;
-}
-
-.wrapperGraph {
-  width: 100%;
-  text-align: center;
 }
 
