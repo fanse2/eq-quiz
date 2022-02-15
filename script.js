@@ -1,9 +1,10 @@
 // Quiz
-quizNo = 0;
+let quizNo = 0;
+let score = 0;
+let maxQuestion = 0;
 
 // Equation Variables
-let slopeFactor = 1;
-let yIntercept = 1;
+
 /*
   y = mx + b
   [Y] = s1 m1/m2[X]  s2 b1/b2
@@ -17,6 +18,9 @@ myGraph.push(document.querySelector("#myGraph1"));
 myGraph.push(document.querySelector("#myGraph2"));
 myGraph.push(document.querySelector("#myGraph3"));
 myGraph.push(document.querySelector("#myGraph4"));
+
+const nextBtn = document.querySelector("#next")
+const qTitle = document.querySelector("#question-title")
 
 // questions
 const questions = [
@@ -34,14 +38,9 @@ const questions = [
 ];
 
 //Shuffle Quiz
-questions.sort(() => {
-  return Math.random() - 0.5;
-});
+questions.sort(() =>  Math.random() - 0.5);
 
-//console.log(questions);
-
-let questionIter = 0;
-let questionCounter = questions.length;
+maxQuestion = questions.length;
 
 // Canvas and Graph
 const arrNum = [];
@@ -58,11 +57,11 @@ function drawLine(ctx, startX, startY, endX, endY) {
 }
 
 function lx(n) {
-  return 125 + 25 * n;
+  return 125 + 12.5 * n;
 }
 
 function ly(n) {
-  return 125 - 25 * n;
+  return 125 - 12.5 * n;
 }
 
 function showEquation(eq) {
@@ -98,6 +97,8 @@ function showEquation(eq) {
   let eqTable = `<table><tr><td>y =&nbsp;</td>
   <td>${mSign}</td>${m} ${bSign} ${b}</tr></table>`;
   questionTxt.innerHTML = eqTable;
+
+  qTitle.innerHTML = `Qustion (${quizNo+1}/${maxQuestion})`;
 }
 
 function drawInit(ctx) {
@@ -105,6 +106,10 @@ function drawInit(ctx) {
   drawLine(ctx, 125, 0, 125, 250); // y-axis
 
   //draw graduations
+  ctx.strokeStyle = "#cccccc";
+  arrNum.forEach((n) => drawLine(ctx, lx(n), ly(0) - 250, lx(n), ly(0) + 250));
+  arrNum.forEach((n) => drawLine(ctx, lx(0) - 250, ly(n), lx(0) + 250, ly(n)));
+  ctx.strokeStyle = "#000000";
   arrNum.forEach((n) => drawLine(ctx, lx(n), ly(0) - 3, lx(n), ly(0) + 3));
   arrNum.forEach((n) => drawLine(ctx, lx(0) - 3, ly(n), lx(0) + 3, ly(n)));
 
@@ -121,17 +126,17 @@ function drawInit(ctx) {
   ctx.fillText("-10", lx(0) - 22, ly(-10) - 1);
 }
 
-function drawGraph(ctx) {
-  console.log(`${slopeFactor} x , ${yIntercept}`);
+function drawGraph(ctx,factor) {
+  console.log(`${factor.m} x , ${factor.b}`);
   let contacts = [];
   ctx.clearRect(0, 0, 250, 250);
   drawInit(ctx);
 
   //x=10,-19  y=mx+b x=(y-b)/m
-  let xp10 = slopeFactor * 10 + yIntercept;
-  let xn10 = slopeFactor * -10 + yIntercept;
-  let yp10 = (10 - yIntercept) / slopeFactor;
-  let yn10 = (-10 - yIntercept) / slopeFactor;
+  let xp10 = factor.m * 10 + factor.b;
+  let xn10 = factor.m * -10 + factor.b;
+  let yp10 = (10 - factor.b) / factor.m;
+  let yn10 = (-10 - factor.b) / factor.m;
 
   /*
     right, left, top, bottom
@@ -153,11 +158,46 @@ function drawGraph(ctx) {
     ctx.strokeStyle = "#000000";
   }
 
-  console.log(contacts);
+  //console.log(contacts);
+}
+
+function makeQuiz(no){
+  const arrEq = [...questions]
+  let answerNo = Math.floor(Math.random() * 4)
+  const answerList = []
+  arrEq.splice(no,1) //remove correct eq
+  arrEq.sort(()=>Math.random()-0.5)
+  for (let i=0;i<=3;i++){
+    if (i===answerNo){
+      answerList.push(questions[no])
+    } else {
+      answerList.push(arrEq[i])
+    }
+  }
+  console.log(answerList)
+  console.log(answerNo)
+  answerList.forEach((v,i)=>{
+    let m,b;
+    m= answerList[i].m1/answerList[i].m2;
+    b= answerList[i].b1/answerList[i].b2;
+    drawInit(ctx[i]);
+    drawGraph(ctx[i],{m,b})
+  })
+
 }
 
 function initQuiz() {
-  showEquation(questions[0]);
+  showEquation(questions[quizNo]);
+  makeQuiz(quizNo);
+  quizNo++;
+}
+
+function goNext(){
+  if(quizNo>=maxQuestion) return;
+  showEquation(questions[quizNo]);
+  makeQuiz(quizNo);
+  quizNo++;
+
 }
 
 function answer1() {}
@@ -165,8 +205,12 @@ function answer2() {}
 function answer3() {}
 function answer4() {}
 
+
+
 // Event Listeners
 myGraph[0].addEventListener("click", answer1);
 myGraph[1].addEventListener("click", answer2);
 myGraph[2].addEventListener("click", answer3);
 myGraph[3].addEventListener("click", answer4);
+
+nextBtn.addEventListener("click",goNext)

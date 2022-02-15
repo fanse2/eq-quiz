@@ -13,17 +13,19 @@ h2 {
   margin: 20px 0;
 }
 
-.inputEquation {
-  background-color: rgb(164, 172, 196);
-  text-align: center;
-}
-
-.showEquation {
+.showGraph {
   background-color: azure;
   text-align: center;
   font-size: 30px;
   font-weight: bold;
 }
+
+
+.questionDiv {
+  background-color: rgb(164, 172, 196);
+  text-align: center;
+}
+
 
 .inputGroup {
   font-size: 30px;
@@ -96,7 +98,9 @@ input[type="number"] {
 }
 
 .eq-div {
+  
   margin: auto;
+  margin-top: 50px;
   display: inline-block;
 }
 
@@ -105,7 +109,4 @@ input[type="number"] {
   text-align: center;
 }
 
-#myGraph {
-  margin: 30px;
-  display: inline;
-}
+
