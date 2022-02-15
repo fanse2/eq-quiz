@@ -2,6 +2,8 @@
 let quizNo = 0;
 let score = 0;
 let maxQuestion = 0;
+let correctAnswer = 0;
+let scoreTxt = ""
 
 // Equation Variables
 
@@ -22,6 +24,14 @@ myGraph.push(document.querySelector("#myGraph4"));
 const nextBtn = document.querySelector("#next")
 const qTitle = document.querySelector("#question-title")
 
+const a1 = document.querySelector("#a1");
+const a2 = document.querySelector("#a2");
+const a3 = document.querySelector("#a3");
+const a4 = document.querySelector("#a4");
+
+const sTxt = document.querySelector("#score-txt");
+
+nextBtn.disabled = true
 // questions
 const questions = [
   { m1: -3, m2: 1, b1: 4, b2: 1 },
@@ -163,19 +173,20 @@ function drawGraph(ctx,factor) {
 
 function makeQuiz(no){
   const arrEq = [...questions]
-  let answerNo = Math.floor(Math.random() * 4)
   const answerList = []
+  
+  correctAnswer = Math.floor(Math.random() * 4)
   arrEq.splice(no,1) //remove correct eq
   arrEq.sort(()=>Math.random()-0.5)
   for (let i=0;i<=3;i++){
-    if (i===answerNo){
+    if (i===correctAnswer){
       answerList.push(questions[no])
     } else {
       answerList.push(arrEq[i])
     }
   }
-  console.log(answerList)
-  console.log(answerNo)
+  //console.log(answerList)
+  console.log(correctAnswer)
   answerList.forEach((v,i)=>{
     let m,b;
     m= answerList[i].m1/answerList[i].m2;
@@ -197,20 +208,59 @@ function goNext(){
   showEquation(questions[quizNo]);
   makeQuiz(quizNo);
   quizNo++;
-
+  nextBtn.disabled = true
 }
 
-function answer1() {}
-function answer2() {}
-function answer3() {}
-function answer4() {}
+function correct(){
+  scoreTxt += '😍'
+  sTxt.textContent = scoreTxt
+}
+
+function wrong(){
+  scoreTxt += '🤬'
+  sTxt.textContent = scoreTxt
+}
+function answer1() {
+  if(correctAnswer==0){
+    correct()
+  } else {
+    wrong()
+  }
+  nextBtn.disabled = false
+}
+function answer2() {
+  if(correctAnswer==1){
+    correct()
+  } else {
+    wrong()
+  }
+  nextBtn.disabled = false
+}
+function answer3() {
+  if(correctAnswer==2){
+    correct()
+  } else {
+    wrong()
+  }
+  nextBtn.disabled = false
+}
+function answer4() {
+  if(correctAnswer==3){
+    correct()
+  } else {
+    wrong()
+  }
+  nextBtn.disabled = false
+}
+
 
 
 
 // Event Listeners
-myGraph[0].addEventListener("click", answer1);
-myGraph[1].addEventListener("click", answer2);
-myGraph[2].addEventListener("click", answer3);
-myGraph[3].addEventListener("click", answer4);
+a1.addEventListener("click", answer1);
+a2.addEventListener("click", answer2);
+a3.addEventListener("click", answer3);
+a4.addEventListener("click", answer4);
 
 nextBtn.addEventListener("click",goNext)
+
