@@ -5,8 +5,6 @@ let maxQuestion = 0;
 let correctAnswer = 0;
 let scoreTxt = ""
 
-// Equation Variables
-
 /*
   y = mx + b
   [Y] = s1 m1/m2[X]  s2 b1/b2
@@ -15,19 +13,28 @@ let scoreTxt = ""
 // Dom Object input
 const questionTxt = document.querySelector("#question");
 
-const myGraph = [];
-myGraph.push(document.querySelector("#myGraph1"));
-myGraph.push(document.querySelector("#myGraph2"));
-myGraph.push(document.querySelector("#myGraph3"));
-myGraph.push(document.querySelector("#myGraph4"));
+const myGraph = [
+  document.querySelector("#myGraph1"),
+  document.querySelector("#myGraph2"),
+  document.querySelector("#myGraph3"),
+  document.querySelector("#myGraph4")
+];
+
+
+// myGraph.push(document.querySelector("#myGraph1"));
+// myGraph.push(document.querySelector("#myGraph2"));
+// myGraph.push(document.querySelector("#myGraph3"));
+// myGraph.push(document.querySelector("#myGraph4"));
 
 const nextBtn = document.querySelector("#next")
 const qTitle = document.querySelector("#question-title")
 
-const a1 = document.querySelector("#a1");
-const a2 = document.querySelector("#a2");
-const a3 = document.querySelector("#a3");
-const a4 = document.querySelector("#a4");
+const as = [
+  document.querySelector("#a1"),
+  document.querySelector("#a2"),
+  document.querySelector("#a3"),
+  document.querySelector("#a4")
+];
 
 const sTxt = document.querySelector("#score-txt");
 
@@ -209,78 +216,22 @@ function goNext(){
   makeQuiz(quizNo);
   quizNo++;
   nextBtn.disabled = true
-  a1.disabled = false
-  a2.disabled = false
-  a3.disabled = false
-  a4.disabled = false
+  as.forEach(a=>a.disabled=false) // disable answer buttons
 }
 
-function correct(){
-  scoreTxt += '😍'
-  sTxt.textContent = scoreTxt
-}
-
-function wrong(){
-  scoreTxt += '🤬'
-  sTxt.textContent = scoreTxt
-}
-function answer1() {
-  if(correctAnswer==0){
-    correct()
+function answer(choise) {
+  if(correctAnswer==choise){
+    scoreTxt += '😍'
+    sTxt.textContent = scoreTxt    
   } else {
-    wrong()
+    scoreTxt += '🤬'
+    sTxt.textContent = scoreTxt
   }
-  nextBtn.disabled = false
-  a1.disabled = true
-  a2.disabled = true
-  a3.disabled = true
-  a4.disabled = true
-}
-function answer2() {
-  if(correctAnswer==1){
-    correct()
-  } else {
-    wrong()
-  }
-  nextBtn.disabled = false
-  a1.disabled = true
-  a2.disabled = true
-  a3.disabled = true
-  a4.disabled = true
-}
-function answer3() {
-  if(correctAnswer==2){
-    correct()
-  } else {
-    wrong()
-  }
-  nextBtn.disabled = false
-  a1.disabled = true
-  a2.disabled = true
-  a3.disabled = true
-  a4.disabled = true
-}
-function answer4() {
-  if(correctAnswer==3){
-    correct()
-  } else {
-    wrong()
-  }
-  nextBtn.disabled = false
-  a1.disabled = true
-  a2.disabled = true
-  a3.disabled = true
-  a4.disabled = true
-}
 
-
-
+  nextBtn.disabled = false
+  as.forEach(a=>a.disabled=true) // enable answer buttons
+}
 
 // Event Listeners
-a1.addEventListener("click", answer1);
-a2.addEventListener("click", answer2);
-a3.addEventListener("click", answer3);
-a4.addEventListener("click", answer4);
-
+as.forEach((a,i)=>a.addEventListener("click",()=>answer(i)))
 nextBtn.addEventListener("click",goNext)
-
