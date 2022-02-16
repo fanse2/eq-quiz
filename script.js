@@ -20,12 +20,6 @@ const myGraph = [
   document.querySelector("#myGraph4")
 ];
 
-
-// myGraph.push(document.querySelector("#myGraph1"));
-// myGraph.push(document.querySelector("#myGraph2"));
-// myGraph.push(document.querySelector("#myGraph3"));
-// myGraph.push(document.querySelector("#myGraph4"));
-
 const nextBtn = document.querySelector("#next")
 const qTitle = document.querySelector("#question-title")
 
@@ -149,15 +143,13 @@ function drawGraph(ctx,factor) {
   ctx.clearRect(0, 0, 250, 250);
   drawInit(ctx);
 
-  //x=10,-19  y=mx+b x=(y-b)/m
+  // x=10,-19  y=mx+b x=(y-b)/m
   let xp10 = factor.m * 10 + factor.b;
   let xn10 = factor.m * -10 + factor.b;
   let yp10 = (10 - factor.b) / factor.m;
   let yn10 = (-10 - factor.b) / factor.m;
 
-  /*
-    right, left, top, bottom
-  */
+  // right, left, top, bottom
   if (xp10 >= -10 && xp10 <= 10) contacts.push({ x: 10, y: xp10 });
   if (xn10 >= -10 && xn10 <= 10) contacts.push({ x: -10, y: xn10 });
   if (yp10 >= -10 && yp10 <= 10) contacts.push({ x: yp10, y: 10 });
